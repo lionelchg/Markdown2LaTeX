@@ -26,8 +26,9 @@ def md_main2latex(md_fn:str) -> None:
                            '\n#### (.+)':r'\n\\subsubsection{\1}',
                            '\n##### (.+)':r'\n\\paragraph{\1}'}
 
-    # For equations
-    md_equation_pattern = {'\$\$\n(.*)\n\$\$':r'\\begin{equation}\n\1\n\\end{equation}'}
+    # For equations (order matters here)
+    md_equation_pattern = {r'\$\$\n\\begin{aligned}([^$]*)\\end{aligned}\n\$\$':r'\\begin{align}\1\\end{align}',
+                            r'\$\$([^$]*)\$\$':r'\\begin{equation}\1\\end{equation}'}
 
     # Texts highlighting patterns (order matters here)
     md_text = {'\*\*\*(.*)\*\*\*':r'\\textbf{\\textit{\1}}',
@@ -66,6 +67,9 @@ def md_macros2latex(md_fn):
     md_macros_pattern = re.compile(r'\\gdef(\\\w+)(.*)(\{\\.+\})')
 
     for line in md_fp:
+        # Second block useless
+        if 'Redefinition of standard macros' in line:
+            break
         if md_macros_pattern.search(line):
             macro = md_macros_pattern.search(line).group(1)
             nargs = md_macros_pattern.search(line).group(2)
@@ -74,16 +78,19 @@ def md_macros2latex(md_fn):
             macro_repl = md_macros_pattern.search(line).group(3)
             new_line = rf'\newcommand{{{macro}}}{nargs}{macro_repl}'
             latex_fp.write(new_line + '\n')
-
+    
 def convert():
     parser = argparse.ArgumentParser()
     parser.add_argument('-f', '--main_fn', help='Main markdown filename', required=True)
-    parser.add_argument('-m', '--macros_fn', help='Macros markdown filename')
-
+    parser.add_argument('-m', '--macros_fn', help='Macros markdown filename', default=None)
     args = parser.parse_args()
 
+    # Convert main markdown file
     md_main2latex(args.main_fn)
-    md_macros2latex(args.macros_fn)
+
+    # Convert macros file if specified
+    if args.macros_fn is not None:
+        md_macros2latex(args.macros_fn)
 
 if __name__ == '__main__':
     convert()

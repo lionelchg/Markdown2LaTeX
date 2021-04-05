@@ -11,7 +11,10 @@ $$
     \gdef\tS{\tilde{S}}
     \gdef\tN{\tilde{N}}
     \gdef\tR{\tilde{R}}
+$$
 
+<!-- Redefinition of standard macros -->
+$$
     \gdef\dv#1#2{\frac{\mrm{d} #1}{\mrm{d} #2}}
     \gdef\pdv#1#2{\frac{\partial #1}{\partial #2}}
     \gdef\vb#1{\mathbf{#1}}
