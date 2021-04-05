@@ -23,3 +23,9 @@ To convert markdown files along with the macros:
 ```shell
 md2latex -f markdown_filename -m macros_filename
 ```
+
+A demo is provided in the `example/` folder. Go into the folder and execute:
+
+```shell
+md2latex -f example.md -m macros.md
+```
