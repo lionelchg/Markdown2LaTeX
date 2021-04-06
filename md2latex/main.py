@@ -63,7 +63,7 @@ def md_macros2latex(md_fn):
     """
     md_fp = open(md_fn, 'r')
 
-    latex_fn = re.search('(\w*)\.md', md_fn).group(1) + '.tex'
+    latex_fn = 'macros.tex'
     latex_fp = open(latex_fn, 'w')
 
     md_macros_pattern = re.compile(r'\\gdef(\\\w+)(.*)(\{\\.+\})')
@@ -93,6 +93,8 @@ def convert():
     # Convert macros file if specified
     if args.macros_fn is not None:
         md_macros2latex(args.macros_fn)
+    else:
+        open('macros.tex', 'w').close()
 
 if __name__ == '__main__':
     convert()
