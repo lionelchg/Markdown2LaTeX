@@ -7,11 +7,13 @@
 Solve in $\mc{M}_3(\mathbb{C})$ the following equation in $X$:
 
 $$
+\begin{equation}
     X^2 = A = \begin{pmatrix}
         1 & 3 & - 7 \\
         2 & 6 & - 14 \\
         1 & 3 & - 7
     \end{pmatrix}
+\end{equation}
 $$
 
 #### Solution
@@ -47,7 +49,9 @@ $$
 Hence $S_p(A) = {0}$. The matrice needs to be trigonalized. It is obvious that:
 
 $$
+\begin{align}
     \dim(\ker(A)) = 2
+\end{align}
 $$
 
 Moreover $A^2 = 0$ and hence $\mrm{Im}(A) \subset \mrm{Ker}(A)$. Let us 

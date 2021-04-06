@@ -28,6 +28,8 @@ def md_main2latex(md_fn:str) -> None:
 
     # For equations (order matters here)
     md_equation_pattern = {r'\$\$\n\\begin{aligned}([^$]*)\\end{aligned}\n\$\$':r'\\begin{align}\1\\end{align}',
+                            r'\$\$\n(\\begin{align}[^$]*\\end{align})\n\$\$':r'\1',
+                            r'\$\$\n(\\begin{equation}[^$]*\\end{equation})\n\$\$':r'\1',
                             r'\$\$([^$]*)\$\$':r'\\begin{equation}\1\\end{equation}'}
 
     # Texts highlighting patterns (order matters here)

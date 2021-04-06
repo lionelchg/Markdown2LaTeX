@@ -4,3 +4,5 @@
 *.synctex.gz
 *.log
 *.out
+*.pdf
+*.tex
