@@ -37,10 +37,24 @@ def md_main2latex(md_fn:str) -> None:
                 '\*\*(.*)\*\*':r'\\textbf{\1}',
                 '\*(.*)\*':r'\\textit{\1}'}
 
+    # Itemize lists
+    md_itemize = {'\n\n-(.*)':r'\n\n\\begin{itemize}\n\\item\1',
+                '\n-(.*)\n\n':r'\n\\item\1\n\\end{itemize}\n\n',
+                '\n-(.*)':r'\n\\item\1'
+                }
+
+    # Enumerate lists
+    md_enumerate = {'\n\n\d\.(.*)':r'\n\n\\begin{enumerate}\n\\item\1',
+                '\n\d\.(.*)\n\n':r'\n\\item\1\n\\end{enumerate}\n\n',
+                '\n\d\.(.*)':r'\n\\item\1'
+                }
+
     # Concatenate the dictionnaries
     replace_dict = {**md_heading_patterns,
                     **md_equation_pattern,
-                    **md_text}
+                    **md_text,
+                    **md_itemize,
+                    **md_enumerate}
 
     # Concatenate the whole file into one string
     whole_file_str = ''.join(md_fp.readlines())
@@ -48,7 +62,7 @@ def md_main2latex(md_fn:str) -> None:
     # Replace headings then equations
     for pattern, repl in replace_dict.items():
         whole_file_str = re.sub(pattern, repl, whole_file_str)
-    
+
     # Insert at the right place in the template
     template_lines.insert(31, whole_file_str)
 
@@ -80,7 +94,7 @@ def md_macros2latex(md_fn):
             macro_repl = md_macros_pattern.search(line).group(3)
             new_line = rf'\newcommand{{{macro}}}{nargs}{macro_repl}'
             latex_fp.write(new_line + '\n')
-    
+
 def convert():
     parser = argparse.ArgumentParser()
     parser.add_argument('-f', '--main_fn', help='Main markdown filename', required=True)

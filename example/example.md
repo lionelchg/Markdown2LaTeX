@@ -16,6 +16,14 @@ $$
 \end{equation}
 $$
 
+#### Hints
+
+Some hints for this exercice:
+
+1. Compute the characteristic polynomial of $A$, find the spectrum of the matrix
+2. Reduce the matrix
+3. Solve in $X$
+
 #### Solution
 
 Computing first the characteristic polynomial of $A$
