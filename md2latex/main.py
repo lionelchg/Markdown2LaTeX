@@ -1,6 +1,7 @@
 import re
 import argparse
 import os
+import numpy as np
 
 def md_main2latex(md_fn:str) -> None:
     """ Convert the markdown file *md_fn* into latex format
@@ -62,6 +63,29 @@ def md_main2latex(md_fn:str) -> None:
     # Replace headings then equations
     for pattern, repl in replace_dict.items():
         whole_file_str = re.sub(pattern, repl, whole_file_str)
+
+    # Table treatment - this is a lookahead regex command
+    # the DOTALL is very important for this regex to work
+    table_pattern = re.compile('\n\n\|(?:(?!\n\n).)*', re.DOTALL)
+    while table_pattern.search(whole_file_str):
+        begin, end = table_pattern.search(whole_file_str).span()
+        table_str = table_pattern.search(whole_file_str).group()[2:]
+        elements = [element for element in table_str.split('|') if not element in ['', '\n']]
+        ncols = len([i for i, el in enumerate(elements) if '---' in el])
+        elements = [element for element in elements if not '---' in element]
+        nrows = int(len(elements) / ncols)
+        elements = np.array(elements).reshape(nrows, ncols)
+        table_latex_str = '\n\n\\begin{center}\n\\begin{tabular}{|' + ' c |' * ncols + '}\\hline\n'
+        for irow in range(nrows):
+            if irow == 0:
+                table_latex_str += ' & '.join(elements[irow, :]) + '\\\\\n\\hline'
+            elif irow == nrows - 1:
+                table_latex_str += ' & '.join(elements[irow, :]) + '\\\\'
+            else:
+                table_latex_str += ' & '.join(elements[irow, :]) + '\\\\\n'
+        table_latex_str += '\n\\hline\n\\end{tabular}\n\\end{center}\n\n'
+
+        whole_file_str = whole_file_str[:begin] + table_latex_str + whole_file_str[end:]
 
     # Insert at the right place in the template
     template_lines.insert(31, whole_file_str)

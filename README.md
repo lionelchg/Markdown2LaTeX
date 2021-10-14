@@ -1,6 +1,6 @@
 # Markdown2LaTeX
 
-Converter from markdown file using KaTeX to `.tex` files
+Converter from markdown file using KaTeX to `.tex` files. The conversion is very close to the original markdown file compared to `pandoc`. A related blog post can be found [here](https://lionelchg.github.io/blog/2021/notes/).
 
 ## Installation
 
@@ -10,7 +10,7 @@ Install the package when in the root directory (where the `setup.py` file is), t
 pip install -e .
 ```
 
-A variable environnement needs to be created to indicate where the folder `md2latex/` is. In your `.bashrc` of `.zshrc`:
+A variable environnement needs to be created to indicate where the folder `md2latex/` is. In your `.bashrc` or `.zshrc`:
 
 ```shell
 export MDTOLATEX_HOME=path/to/md2latex
@@ -18,13 +18,13 @@ export MDTOLATEX_HOME=path/to/md2latex
 
 ## Convert
 
-To convert markdown files along with the macros:
+To convert markdown files along with macros defined in KaTeX:
 
 ```shell
 md2latex -f markdown_filename -m macros_filename
 ```
 
-A demo is provided in the `example/` folder. Go into the folder and execute:
+A demo is provided in the `example/` folder. Go into the folder and execute
 
 ```shell
 md2latex -f example.md -m macros.md
