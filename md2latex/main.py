@@ -75,7 +75,7 @@ def md_main2latex(md_fn:str) -> None:
         elements = [element for element in elements if not '---' in element]
         nrows = int(len(elements) / ncols)
         elements = np.array(elements).reshape(nrows, ncols)
-        table_latex_str = '\n\n\\begin{center}\n\\begin{tabular}{|' + ' c |' * ncols + '}\\hline\n'
+        table_latex_str = '\n\n\\begin{table}\n\\centering\n\\begin{tabular}{|' + ' c |' * ncols + '}\\hline\n'
         for irow in range(nrows):
             if irow == 0:
                 table_latex_str += ' & '.join(elements[irow, :]) + '\\\\\n\\hline'
@@ -83,7 +83,7 @@ def md_main2latex(md_fn:str) -> None:
                 table_latex_str += ' & '.join(elements[irow, :]) + '\\\\'
             else:
                 table_latex_str += ' & '.join(elements[irow, :]) + '\\\\\n'
-        table_latex_str += '\n\\hline\n\\end{tabular}\n\\end{center}\n\n'
+        table_latex_str += '\n\\hline\n\\end{tabular}\n\\end{table}\n\n'
 
         whole_file_str = whole_file_str[:begin] + table_latex_str + whole_file_str[end:]
 

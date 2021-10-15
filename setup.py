@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 
 requirements = []
 setup_requirements = []
-tests_requirements = ['pytest']
+tests_requirements = ['numpy', 'pytest']
 
 setup(
     author='L. Cheng',

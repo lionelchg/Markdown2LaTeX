@@ -32,7 +32,7 @@ md2latex -f example.md -m macros.md
 
 ## How does it work?
 
-`md2latex` uses regex to parse the markdown file and convert the entries to LaTeX. As of now the following conversions are made:
+`md2latex` uses regex to parse the markdown file and convert the entries to LaTeX. An initial template is given to the python script (`template.tex` in `md2latex/`). As of now the following conversions are made:
 
 - `$$..$$` and related to `equation`, `align` environments
 - Lists in `1. 2. 3.` are converted to `enumerate` environment, `- - -` in `itemize` environment
