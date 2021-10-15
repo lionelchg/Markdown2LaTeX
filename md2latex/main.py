@@ -39,9 +39,9 @@ def md_main2latex(md_fn:str) -> None:
                 '\*(.*)\*':r'\\textit{\1}'}
 
     # Itemize lists
-    md_itemize = {'\n\n-(.*)':r'\n\n\\begin{itemize}\n\\item\1',
-                '\n-(.*)\n\n':r'\n\\item\1\n\\end{itemize}\n\n',
-                '\n-(.*)':r'\n\\item\1'
+    md_itemize = {'\n\n- (.*)':r'\n\n\\begin{itemize}\n\\item \1',
+                '\n- (.*)\n\n':r'\n\\item \1\n\\end{itemize}\n\n',
+                '\n- (.*)':r'\n\\item \1'
                 }
 
     # Enumerate lists
