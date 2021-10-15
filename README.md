@@ -29,3 +29,14 @@ A demo is provided in the `example/` folder. Go into the folder and execute
 ```shell
 md2latex -f example.md -m macros.md
 ```
+
+## How does it work?
+
+`md2latex` uses regex to parse the markdown file and convert the entries to LaTeX. As of now the following conversions are made:
+
+- `$$..$$` and related to `equation`, `align` environments
+- Lists in `1. 2. 3.` are converted to `enumerate` environment, `- - -` in `itemize` environment
+- Markdown tables are converted to LaTeX tables
+
+For all these conversions to work the original markdown file must follow the standard markdown format where tables, lists and equations are surrounded by blank lines.
+
